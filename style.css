@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Syne+Tactile&display=swap');
+
+.allButtons{
+  position: relative;
+  left:2%;
+  display: inline block;
+}
+button{
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+  height:75px;
+  width:150px;
+  border:1px solid black;
+  border-radius: 10%;
+  background-image:linear-gradient(to top left, rgba(0,0,255,.5), rgba(255,0,0,.5));  
+  text-decoration-line:underline ;
+}
+button:hover{
+  background-color: rgba(0,0,0,0);
+}
+.passGenPrev {
+  position: relative;
+  display: inline-block;
+}
+
+.passGenPrev-content {
+  display:none;
+  position: absolute;
+  background-color: rgba(0,0,0,0);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,.5);
+  z-index: 1;
+  padding: 5px 6px;
+  border-radius:10%;
+  height:150px;
+  width:190px;
+}
+
+.passGenPrev:hover .passGenPrev-content {
+ display:block; 
+}
+
+.passBtn{
+  width:200px;
+}
+.calcPrev {
+  position: relative;
+  display: inline-block;
+}
+
+.calcPrev-content {
+  display:none;
+  position: absolute;
+  background-color: rgba(0,0,0,0);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,.5);
+  z-index: 1;
+  padding: 5px 6px;
+  border-radius:10%;
+  height:150px;
+  width:140px;
+}
+
+.calcPrev:hover .calcPrev-content {
+ display:block; 
+}
+
+.toDoListPrev {
+  position: relative;
+  display: inline-block;
+}
+
+.toDoListPrev-content {
+  display:none;
+  position: absolute;
+  background-color: rgba(0,0,0,0);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,.5);
+  z-index: 1;
+  padding: 5px 6px;
+  border-radius:10%;
+  height:150px;
+  width:140px;
+}
+
+.toDoListPrev:hover .toDoListPrev-content {
+ display:block; 
+}
+
+.socials{
+  display: inline;
+  position:absolute;
+  right:5%;
+}
+.YouTubeicon{
+  height:50px;
+  width:50px;
+  border-radius:10%;
+}
+.Twittericon{
+  border-radius: 10%;
+  height:50px;
+  width:50px;
+}
