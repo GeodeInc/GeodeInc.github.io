@@ -35,10 +35,6 @@ button:hover{
   width:190px;
 }
 
-.passGenPrev:hover .passGenPrev-content {
- display:block; 
-}
-
 .passBtn{
   width:200px;
 }
@@ -47,28 +43,12 @@ button:hover{
   display: inline-block;
 }
 
-.calcPrev-content {
-  display:none;
-  position: absolute;
-  background-color: rgba(0,0,0,0);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,.5);
-  z-index: 1;
-  padding: 5px 6px;
-  border-radius:10%;
-  height:150px;
-  width:140px;
-}
-
-.calcPrev:hover .calcPrev-content {
- display:block; 
-}
-
 .toDoListPrev {
   position: relative;
   display: inline-block;
 }
 
-.toDoListPrev-content {
+.toDoListPrev-content, .calcPrev-content {
   display:none;
   position: absolute;
   background-color: rgba(0,0,0,0);
@@ -80,7 +60,7 @@ button:hover{
   width:140px;
 }
 
-.toDoListPrev:hover .toDoListPrev-content {
+.toDoListPrev:hover .toDoListPrev-content, .calcPrev:hover .calcPrev-content, .passGenPrev:hover .passGenPrev-content  {
  display:block; 
 }
 
@@ -89,13 +69,11 @@ button:hover{
   position:absolute;
   right:5%;
 }
-.YouTubeicon{
+.YouTubeicon, .Twittericon{
   height:50px;
   width:50px;
   border-radius:10%;
 }
-.Twittericon{
-  border-radius: 10%;
-  height:50px;
-  width:50px;
+.YouTubeicon:hover, .Twittericon:hover{
+opacity:.9;
 }
