@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Calculator</title> <!-- the title of the tab -->
+    <link href="Geodeinc-logos.jpeg" rel='icon' type="image/icon type">
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>  
+<center>
+    <h1>Calculator</h1>
+  <table id='input'>
+    <tr>
+      <td id="display-cell">
+        0
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button onclick='getData("(")'>(</button>
+        <button onclick='getData(")")'>)</button>
+        <button onclick='getData("^")' class="special-btn">^</button>
+        <button onclick='getData("clear")' class="special-btn">C</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+<button onclick='getData("7")'accesskey='7'>7</button>
+<button onclick='getData("8")'accesskey='8'>8</button>
+<button onclick='getData("9")'accesskey='9'>9</button>
+<button onclick='getData("/")' accesskey='/' class="special-btn">÷</button>
+       </td>
+    </tr>
+    <tr>
+      <td>
+<button onclick='getData("4")'accesskey='4'>4</button>
+<button onclick='getData("5")'accesskey='5'>5</button>
+<button onclick='getData("6")'accesskey='6'>6</button>
+<button onclick='getData("*")'accesskey='*' class="special-btn">×</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+<button onclick='getData("1")'accesskey='1'>1</button>
+<button onclick='getData("2")'accesskey='3'>2</button>
+<button onclick='getData("3")'accesskey='3'>3</button>
+<button onclick='getData("-")' accesskey='-' class="special-btn">-</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+<button onclick='getData("0")'>0</button>
+<button onclick='getData(".")'>.</button>
+<button onclick='equals()' class="special-btn">=</button>
+<button onclick='getData("+")' class="special-btn">+</button>
+      </td>
+    </tr>
+  </table>
+</center>
+<script src="script.js"></script>
+</body>
+</html>
