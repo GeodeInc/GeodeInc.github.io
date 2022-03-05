@@ -14,7 +14,7 @@ if(iconMode.innerHTML== 'light_mode'){
 else{
     iconMode.innerHTML= 'light_mode'
     iconMode.style.color='black'
-    document.body.style.backgroundColor='#8A9A5B'
+    document.body.style.backgroundColor='#b1bca0'
     header.style.backgroundColor='#3A6A59'
     img.src = 'Geodeinc-logos_black.png'
 }
