@@ -7,7 +7,7 @@ function lightDarkMode(){
 if(iconMode.innerHTML== 'light_mode'){
     iconMode.innerHTML= 'dark_mode'
     iconMode.style.color = 'white'
-    document.body.style.backgroundColor = "black"
+    document.body.style.backgroundColor = "#27213C"
     header.style.backgroundColor='#363946'
     img.src = 'Geodeinc-logos_white.png'
 }
