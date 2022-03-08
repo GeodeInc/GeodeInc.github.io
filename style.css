@@ -161,3 +161,6 @@ body, html{
       transform: translateX(1000px);
     }
   }
+ #bug{
+    font-size:24px;
+  }
