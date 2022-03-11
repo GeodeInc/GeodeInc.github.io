@@ -66,19 +66,19 @@ animation:reverseTranslateX 3s ease-in forwards;
 
 
 
- .Projects:hover #project-3{
+ .dropDown:hover #project-3{
   transform-origin: top center;
   animation-fill-mode:forwards;
   animation: translateX 1.25s  ease-in-out forwards;
  display:block;
  }
- .Projects:hover #project-2{
+ .DropDown:hover #project-2{
   transform-origin: top center;
   animation-fill-mode:forwards;
   animation: translateX 1s  ease-in-out forwards;
   display:block;
  }
- .Projects:hover #project-1{
+ .dropDown:hover #project-1{
   transform-origin: top center;
   animation-fill-mode:forwards;
   animation: translateX .75s  ease-in-out forwards;
@@ -88,7 +88,7 @@ animation:reverseTranslateX 3s ease-in forwards;
   position: relative;
   display: inline-block;
 }
-.Projects:hover .dropDown-Content {
+.dropDown:hover .dropDown-Content {
     display: block;
     transform-origin: top center;
     animation: slideDown 1s ease-in-out forwards;
