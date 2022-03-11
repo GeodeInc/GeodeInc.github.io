@@ -72,7 +72,7 @@ animation:reverseTranslateX 3s ease-in forwards;
   animation: translateX 1.25s  ease-in-out forwards;
  display:block;
  }
- .DropDown:hover #project-2{
+ .dropDown:hover #project-2{
   transform-origin: top center;
   animation-fill-mode:forwards;
   animation: translateX 1s  ease-in-out forwards;
