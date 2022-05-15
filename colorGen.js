@@ -13,7 +13,7 @@ document.addEventListener('keydown', event => {
       hexDiv[index].innerText = item
       hexVal += item + '-'
     })
-    window.history.replaceState(null, document.title, 'https://COOLORS.taylorhoughtal1.repl.co/' + hexVal)
+    window.history.replaceState(null, document.title, hexVal)
     hexVal=''
   }
 })
