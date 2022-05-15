@@ -13,7 +13,7 @@ document.addEventListener('keydown', event => {
       hexDiv[index].innerText = item
       hexVal += item + '-'
     })
-    window.history.replaceState(null, document.title, 'geodeinc.me/' + hexVal)
+    window.history.replaceState( 'geodeinc.me/' , hexVal)
     hexVal=''
   }
 })
@@ -37,7 +37,7 @@ function load (){
       hexDiv[index].innerText = item
       hexVal +=item + '-'
     })
-     window.history.replaceState(null, document.title, 'geodeinc.me/' + hexVal)
+     window.history.replaceState('geodeinc.me/', hexVal)
     hexVal=''
 }
 function copyAndPaste(element){
