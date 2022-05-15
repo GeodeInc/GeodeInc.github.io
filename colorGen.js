@@ -37,9 +37,9 @@ function load (){
       hexDiv[index].innerText = item
       hexVal +=item + '-'
     })
-  var startup = window.location.href.split('http://geodeinc.me/')
+  var startup = String(window.location.href).split('http://geodeinc.me/')
 var startupHex = startup.split('-')
-alert('startupHex')
+alert(startupHex)
      window.history.replaceState(null, document.title, 'http://geodeinc.me' + hexVal)
     hexVal=''
 }
