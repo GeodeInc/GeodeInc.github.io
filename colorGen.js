@@ -39,7 +39,7 @@ function load (){
     })
   var startup = window.location.href.split('http://geodeinc.me/')
 var startupHex = startup.split('-')
-alert(startupHex)
+alert('startupHex')
      window.history.replaceState(null, document.title, 'http://geodeinc.me' + hexVal)
     hexVal=''
 }
