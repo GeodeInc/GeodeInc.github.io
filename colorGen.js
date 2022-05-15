@@ -2,9 +2,7 @@
 //Variables 
 var div = '';
 var hexDiv = document.querySelectorAll(".hex");
-var startup = window.location.href.split('http://geodeinc.me/')
-var startupHex = startup.split('-')
-alert(startupHex)
+
 
 //Event Listeners
 document.addEventListener('keydown', event => {
@@ -39,6 +37,9 @@ function load (){
       hexDiv[index].innerText = item
       hexVal +=item + '-'
     })
+  var startup = window.location.href.split('http://geodeinc.me/')
+var startupHex = startup.split('-')
+alert(startupHex)
      window.history.replaceState(null, document.title, 'http://geodeinc.me' + hexVal)
     hexVal=''
 }
