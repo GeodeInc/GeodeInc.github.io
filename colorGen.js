@@ -43,6 +43,7 @@ function load (){
 function copyAndPaste(element){
   
 navigator.clipboard.writeText(element.innerText)
+alert('text copied!')
 }
 
 
