@@ -37,7 +37,7 @@ function load (){
       hexDiv[index].innerText = item
       hexVal +=item + '-'
     })
-    window.history.replaceState(null, document.title, 'https://COOLORS.taylorhoughtal1.repl.co/' + hexVal)
+     window.history.replaceState(null, document.title, 'geodeinc.me/' + hexVal)
     hexVal=''
 }
 function copyAndPaste(element){
