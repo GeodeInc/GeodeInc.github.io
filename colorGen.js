@@ -13,7 +13,7 @@ document.addEventListener('keydown', event => {
       hexDiv[index].innerText = item
       hexVal += item + '-'
     })
-    window.history.replaceState(null, document.title, hexVal)
+    window.history.replaceState(null, document.title, 'geodeinc.me/' + hexVal)
     hexVal=''
   }
 })
