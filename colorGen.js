@@ -13,7 +13,7 @@ document.addEventListener('keydown', event => {
       hexDiv[index].innerText = item
       hexVal += item + '-'
     })
-    window.history.replaceState( hexVal)
+    window.history.replaceState(null, hexVal)
     hexVal=''
   }
 })
@@ -37,7 +37,7 @@ function load (){
       hexDiv[index].innerText = item
       hexVal +=item + '-'
     })
-     window.history.replaceState( hexVal)
+     window.history.replaceState(null, hexVal)
     hexVal=''
 }
 function copyAndPaste(element){
