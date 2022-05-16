@@ -37,7 +37,7 @@ function load (){
       hexDiv[index].innerText = item
       hexVal +=item + '-'
     })
-     window.history.replaceState(null, document.title, 'http://geodeinc.me' + hexVal)
+     window.history.replaceState(null, document.title, 'https://geodeinc.me' + hexVal)
     hexVal=''
 }
 
