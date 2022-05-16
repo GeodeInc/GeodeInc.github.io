@@ -40,10 +40,22 @@ function load (){
      window.history.replaceState(null, document.title, 'http://geodeinc.me' + hexVal)
     hexVal=''
 }
-function copyAndPaste(element){
-  
-navigator.clipboard.writeText(element.innerText)
-alert('text copied!')
+
+function copyTextToClipboard(text) {
+    if (!navigator.clipboard){
+        var textArea = document.createElement("textarea");
+        textArea.value = text.innerText;
+        textArea.style.top = textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try { document.execCommand('copy'); } catch(err){ console.log("didnt work") } 
+        document.body.removeChild(textArea);
+        return
+    }
+    
+    navigator.clipboard.writeText(text.innerText)
 }
 
 
