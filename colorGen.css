@@ -14,7 +14,7 @@ html, body {
 
 .color {
   font-size: 0;
-  height:100.25vh;
+  height: 100.25vh;
   width: 20%;
   display:inline-block;
   margin:0;
@@ -29,31 +29,23 @@ html, body {
   top:70%;
   left:0%;
   font-size: 2rem;
-  color:#fff;
   user-select: none; 
   width:50%;
   border-radius:8px;
 }
 
 .hex:hover {
-  background:rgba(0,0,0,.1);
+  backdrop-filter: brightness(80%);
 }
+
+.hex:active {
+  backdrop-filter: brightness(60%);
+}
+
+
 .material-symbols-outlined{
   position:relative;
-  top:60%;
+  top:65%;
   width:50%;
 }
-.color-locked{
-  font-size: 0;
-  height:100.25vh;
-  width: 20%;
-  display:inline-block;
-  margin:0;
-  padding:0;
-  white-space: nowrap;
-  user-select: none; 
-  margin: -2px;
-}
-.color-locked, .color{
-  display:inline-block;
-}
+
