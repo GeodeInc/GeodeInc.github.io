@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link href="calc.css" rel="stylesheet" type="text/css" />
+    <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6" ></script>
+  </head>
+  <body>
+    <label id ='labelSlope'for = 'slopeInput'>Enter Slope: </label>
+    <input id = 'slope'>
+    <br/>
+    <br/>
+    <label for='yInt'>Enter B </label>
+    <input id = 'yInt' type='number'>
+    <br/>
+    <br/>
+    <label for = 'point'>Enter Point</label>
+    <input id ='point1'>
+    <br/>
+    <br/>
+    <button onclick='calculate()'>Enter</button>
+    <br/>
+    <br/>
+    <br/>
+    <label for = 'newEq'class ='label'>Perpendicular line equation:</label>
+    <label id = 'newEq' class = 'answer'></label>
+    <br/>
+    <br/>
+    <label for = 'midpoint'class='label'>Midpoint: </label>
+    <label id = 'midPoint' class = 'answer'></label>
+    <br/>
+    <br/>
+    <label for = 'endpoint'class = label>Endpoint: </label>
+    <label id = 'endPoint' class = 'answer'></label>
+    <br/>
+    <br/>
+    <div id="calculator" style="width: 600px; height: 400px;"></div>
+  <script src="calc.js"></script>
+  </body>
+</html>
