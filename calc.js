@@ -41,11 +41,11 @@ function calculate() {
  
   testY = slopeY.replace('-', '')
   if(testY!=slopeY){
-    slopeY = testY*-1
+    slopeY = parseFloat(testY)*-1
   }
   testX = slopeX.replace('-', '')
   if(testX!=slopeX){
-    slopeX = testX*-1
+    slopeX = parseFloat(testX)*-1
   }
   
   slopeY = parseFloat(slopeY)
