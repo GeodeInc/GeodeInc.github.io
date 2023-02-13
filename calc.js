@@ -39,6 +39,15 @@ function calculate() {
   slopeY = slope[0]
   slopeX = slope[1]
  
+  testY = slopeY.replace('-', '')
+  if(testY!=slopeY){
+    slopeY = testY*-1
+  }
+  testX = slopeX.replace('-', '')
+  if(testX!=slopeX){
+    slopeX = testX*-1
+  }
+  
   slopeY = parseFloat(slopeY)
   slopeX = parseFloat(slopeX)
 
