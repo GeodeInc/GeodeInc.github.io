@@ -92,12 +92,12 @@ var randint = (min, max) => { return Math.floor(Math.random() * (max - min + 1) 
 
 //converts the given rgb values to hex
 var rgbToHex = (r, g, b) => { 
-  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); 
+  return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); 
 }
 
 //converts the given hex to rgb
 var hexToRgb = (hex) => {
-  var result = /^?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
 }
 
