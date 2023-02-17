@@ -62,6 +62,7 @@ var updateDivColors = (colors) => {
   
   //runs for all the supplied colors
   colors.forEach((item, index, list) => {
+    item = "#" + item
     
     //if it isnt locked it updates the colors and hex display
     if(!lockedDivs[index]) colorDiv[index].style.backgroundColor = hexCodeDisplay[index].innerText = item;
