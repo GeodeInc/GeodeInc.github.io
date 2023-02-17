@@ -83,7 +83,7 @@ var updateDivColors = (colors) => {
   })
   
   //changes the url
-  var newURL = new URL("/" + newColors.join("-"), window.location.origin);
+  var newURL = new URL("/colorgenerator/" + newColors.join("-"), window.location.origin);
   window.history.pushState(null, null, newURL.href)
 }
 
