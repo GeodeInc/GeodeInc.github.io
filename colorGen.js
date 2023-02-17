@@ -58,6 +58,7 @@ var generateColors = (numberOfColors) => {
 
 //changes the color and dispaly hex code of the divs and keeps any locked divs the same
 var updateDivColors = (colors) => {
+  console.log(colors)
   var newColors = []
   
   //runs for all the supplied colors
