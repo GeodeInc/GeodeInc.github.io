@@ -22,6 +22,10 @@ html, body {
   cursor: pointer;
 }
 
+#colorApp {
+  height: 100%;
+}
+
 .hex {
   margin-bottom: 20px;
   font-size: 1.5rem;
