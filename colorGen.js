@@ -18,65 +18,60 @@ hexDisplays.forEach(hexDiv => {
   });
 });
 
-// Container focus for spacebar
-const colorApp = document.getElementById("colorApp");
-colorApp.focus();
-
-// Spacebar regenerates palette
-colorApp.addEventListener("keydown", e => {
-  if(e.code === "Space") {
+// Spacebar on document so focus is never an issue
+document.addEventListener("keydown", e => {
+  if (e.code === "Space") {
     e.preventDefault();
-    const baseHex = colorDivs[0].style.backgroundColor || randomHex();
-    updateColors(generateComplementaryPalette(baseHex));
+    updateColors(generateComplementaryPalette(randomHex()));
   }
 });
 
-// Initialize colors on load
+// Initialize colors on load — read from PATH, not hash
 window.addEventListener("load", () => {
-  const hash = window.location.hash.slice(1);
-  let hashColors = [];
+  const match = window.location.pathname.match(/\/colorgenerator\/([0-9a-fA-F\-]+)/);
+  let initialColors;
 
-  if(hash) {
-    hashColors = hash.split("-").map(c => c.startsWith("#") ? c : "#" + c);
+  if (match) {
+    initialColors = match[1].split("-").map(c => c.startsWith("#") ? c : "#" + c);
   } else {
-    hashColors = generateComplementaryPalette(randomHex());
+    initialColors = generateComplementaryPalette(randomHex());
   }
 
-  updateColors(hashColors);
+  updateColors(initialColors);
 });
 
 // Generate random hex
 function randomHex() {
-  return rgbToHex(randInt(0,255), randInt(0,255), randInt(0,255));
+  return rgbToHex(randInt(0, 255), randInt(0, 255), randInt(0, 255));
 }
 
 // Generate 5-color complementary palette
 function generateComplementaryPalette(baseHex) {
   const rgb = hexToRgb(baseHex);
-  const r = rgb.r/255, g = rgb.g/255, b = rgb.b/255;
-  const max = Math.max(r,g,b), min = Math.min(r,g,b);
-  let h, s, l = (max + min)/2;
+  const r = rgb.r / 255, g = rgb.g / 255, b = rgb.b / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
 
-  if(max === min) h = s = 0;
+  if (max === min) { h = s = 0; }
   else {
     const d = max - min;
-    s = l > 0.5 ? d/(2 - max - min) : d/(max + min);
-    switch(max){
-      case r: h = (g - b)/d + (g < b ? 6 : 0); break;
-      case g: h = (b - r)/d + 2; break;
-      case b: h = (r - g)/d + 4; break;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
     }
     h *= 60;
   }
   s *= 100; l *= 100;
 
-  const colors = [];
-  colors.push(baseHex);
-  colors.push(rgbToHex(...hslToRgb((h + 180)%360, s, l)));
-  colors.push(rgbToHex(...hslToRgb((h + 30)%360, s, l)));
-  colors.push(rgbToHex(...hslToRgb((h - 30 + 360)%360, s, l)));
-  colors.push(rgbToHex(...hslToRgb((h + 120)%360, s, l)));
-  return colors;
+  return [
+    baseHex,
+    rgbToHex(...hslToRgb((h + 180) % 360, s, l)),
+    rgbToHex(...hslToRgb((h + 30) % 360, s, l)),
+    rgbToHex(...hslToRgb((h - 30 + 360) % 360, s, l)),
+    rgbToHex(...hslToRgb((h + 120) % 360, s, l)),
+  ];
 }
 
 // Update colors
@@ -86,7 +81,7 @@ function updateColors(colors) {
   colors.forEach((color, i) => {
     const hex = color.startsWith('#') ? color : '#' + color;
 
-    if(!lockedDivs[i]) {
+    if (!lockedDivs[i]) {
       colorDivs[i].style.backgroundColor = hex;
       hexDisplays[i].innerText = hex;
     }
@@ -100,35 +95,38 @@ function updateColors(colors) {
     hexDiv.style.color = lockBtns[i].style.color = invert;
   });
 
-  const newURL = new URL("/colorgenerator/" + newColors.map(c => c.replace("#","")).join("-"), window.location.origin);
+  const newURL = new URL(
+    "/colorgenerator/" + newColors.map(c => c.replace("#", "")).join("-"),
+    window.location.origin
+  );
   window.history.replaceState(null, null, newURL.href);
 }
 
 // Utility functions
-function randInt(min, max) { return Math.floor(Math.random()*(max-min+1)+min); }
+function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
 
 function hslToRgb(h, s, l) {
   s /= 100; l /= 100;
-  const k = n => (n + h/30) % 12;
+  const k = n => (n + h / 30) % 12;
   const a = s * Math.min(l, 1 - l);
-  const f = n => l - a * Math.max(Math.min(k(n)-3, 9-k(n), 1), -1);
-  return [Math.round(f(0)*255), Math.round(f(8)*255), Math.round(f(4)*255)];
+  const f = n => l - a * Math.max(Math.min(k(n) - 3, 9 - k(n), 1), -1);
+  return [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
 }
 
-function rgbToHex(r,g,b) { return "#" + ((1<<24) + (r<<16) + (g<<8) + b).toString(16).slice(1); }
+function rgbToHex(r, g, b) { return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); }
 
 function hexToRgb(hex) {
   const res = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return res ? {r:parseInt(res[1],16), g:parseInt(res[2],16), b:parseInt(res[3],16)} : null;
+  return res ? { r: parseInt(res[1], 16), g: parseInt(res[2], 16), b: parseInt(res[3], 16) } : null;
 }
 
 function invertColor(hex) {
   const rgb = hexToRgb(hex);
-  return `rgb(${255-rgb.r}, ${255-rgb.g}, ${255-rgb.b})`;
+  return `rgb(${255 - rgb.r}, ${255 - rgb.g}, ${255 - rgb.b})`;
 }
 
 function copyToClipboard(text) {
-  if(navigator.clipboard) navigator.clipboard.writeText(text);
+  if (navigator.clipboard) navigator.clipboard.writeText(text);
   else {
     const textarea = document.createElement("textarea");
     textarea.value = text;
