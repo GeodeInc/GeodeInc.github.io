@@ -26,13 +26,13 @@ document.addEventListener("keydown", e => {
   }
 });
 
-// Initialize colors on load — read from PATH, not hash
+// Initialize colors on load — read from hash
 window.addEventListener("load", () => {
-  const match = window.location.pathname.match(/\/colorgenerator\/([0-9a-fA-F\-]+)/);
+  const hash = window.location.hash.slice(1);
   let initialColors;
 
-  if (match) {
-    initialColors = match[1].split("-").map(c => c.startsWith("#") ? c : "#" + c);
+  if (hash) {
+    initialColors = hash.split("-").map(c => c.startsWith("#") ? c : "#" + c);
   } else {
     initialColors = generateComplementaryPalette(randomHex());
   }
@@ -95,11 +95,7 @@ function updateColors(colors) {
     hexDiv.style.color = lockBtns[i].style.color = invert;
   });
 
-  const newURL = new URL(
-    "/colorgenerator/" + newColors.map(c => c.replace("#", "")).join("-"),
-    window.location.origin
-  );
-  window.history.replaceState(null, null, newURL.href);
+  window.location.replace("#" + newColors.map(c => c.replace("#", "")).join("-"));
 }
 
 // Utility functions
