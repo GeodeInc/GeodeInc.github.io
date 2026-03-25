@@ -21,7 +21,7 @@ function calculate() {
   labels[0].style.color = 'black';
   labels[1].style.color = 'black';
   labels[2].style.color = 'black';
-  if(document.getElementById('slope').value =='' || document.getElementById('yInt').value =='' || document.getElementById('point1').value ==''){
+  if(document.getElementById('slope').value =='' || document.getElementById('yInt').value =='' || document.getElementById('pointx').value ==''||document.getElementById('pointy').value ==''){
     return
   }
   slope = document.getElementById('slope').value
