@@ -18,8 +18,12 @@ hexDisplays.forEach(hexDiv => {
   });
 });
 
+// Container focus for spacebar
+const colorApp = document.getElementById("colorApp");
+colorApp.focus();
+
 // Spacebar regenerates palette
-document.addEventListener("keydown", e => {
+colorApp.addEventListener("keydown", e => {
   if(e.code === "Space") {
     e.preventDefault();
     const baseHex = colorDivs[0].style.backgroundColor || randomHex();
@@ -29,11 +33,10 @@ document.addEventListener("keydown", e => {
 
 // Initialize colors on load
 window.addEventListener("load", () => {
-  const hash = window.location.hash.slice(1); // remove #
+  const hash = window.location.hash.slice(1);
   let hashColors = [];
 
   if(hash) {
-    // Split and make sure each color starts with #
     hashColors = hash.split("-").map(c => c.startsWith("#") ? c : "#" + c);
   } else {
     hashColors = generateComplementaryPalette(randomHex());
@@ -42,7 +45,7 @@ window.addEventListener("load", () => {
   updateColors(hashColors);
 });
 
-// Generate a random hex color
+// Generate random hex
 function randomHex() {
   return rgbToHex(randInt(0,255), randInt(0,255), randInt(0,255));
 }
@@ -68,15 +71,15 @@ function generateComplementaryPalette(baseHex) {
   s *= 100; l *= 100;
 
   const colors = [];
-  colors.push(baseHex); // base
-  colors.push(rgbToHex(...hslToRgb((h + 180)%360, s, l))); // complementary
-  colors.push(rgbToHex(...hslToRgb((h + 30)%360, s, l))); // analogous +
-  colors.push(rgbToHex(...hslToRgb((h - 30 + 360)%360, s, l))); // analogous -
-  colors.push(rgbToHex(...hslToRgb((h + 120)%360, s, l))); // triadic
+  colors.push(baseHex);
+  colors.push(rgbToHex(...hslToRgb((h + 180)%360, s, l)));
+  colors.push(rgbToHex(...hslToRgb((h + 30)%360, s, l)));
+  colors.push(rgbToHex(...hslToRgb((h - 30 + 360)%360, s, l)));
+  colors.push(rgbToHex(...hslToRgb((h + 120)%360, s, l)));
   return colors;
 }
 
-// Update colors and invert text/locks
+// Update colors
 function updateColors(colors) {
   const newColors = [];
 
