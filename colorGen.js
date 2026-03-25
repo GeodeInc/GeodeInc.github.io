@@ -92,6 +92,8 @@ function updateColors(colors) {
   });
 
   window.history.replaceState(null, null, "#" + newColors.map(c => c.replace("#", "")).join("-"));
+  document.querySelectorAll(".role")[i].style.color = invert;
+
 }
 
 
