@@ -18,7 +18,7 @@ hexDisplays.forEach(hexDiv => {
   });
 });
 
-// Spacebar on document so focus is never an issue
+// Spacebar regenerates palette
 document.addEventListener("keydown", e => {
   if (e.code === "Space") {
     e.preventDefault();
@@ -26,7 +26,7 @@ document.addEventListener("keydown", e => {
   }
 });
 
-// Initialize colors on load — read from hash
+// Initialize colors on load
 window.addEventListener("load", () => {
   const hash = window.location.hash.slice(1);
   let initialColors;
@@ -40,12 +40,10 @@ window.addEventListener("load", () => {
   updateColors(initialColors);
 });
 
-// Generate random hex
 function randomHex() {
   return rgbToHex(randInt(0, 255), randInt(0, 255), randInt(0, 255));
 }
 
-// Generate 5-color complementary palette
 function generateComplementaryPalette(baseHex) {
   const rgb = hexToRgb(baseHex);
   const r = rgb.r / 255, g = rgb.g / 255, b = rgb.b / 255;
@@ -74,7 +72,6 @@ function generateComplementaryPalette(baseHex) {
   ];
 }
 
-// Update colors
 function updateColors(colors) {
   const newColors = [];
 
@@ -95,10 +92,9 @@ function updateColors(colors) {
     hexDiv.style.color = lockBtns[i].style.color = invert;
   });
 
-  window.location.replace("#" + newColors.map(c => c.replace("#", "")).join("-"));
+  window.history.replaceState(null, null, "#" + newColors.map(c => c.replace("#", "")).join("-"));
 }
 
-// Utility functions
 function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
 
 function hslToRgb(h, s, l) {
