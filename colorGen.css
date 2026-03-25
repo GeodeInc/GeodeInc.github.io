@@ -59,8 +59,10 @@ html, body {
 .role {
   position: absolute;
   top: 20px;
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.55;
 }
