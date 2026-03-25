@@ -22,13 +22,23 @@ hexDisplays.forEach(hexDiv => {
 document.addEventListener("keydown", e => {
   if(e.code === "Space") {
     e.preventDefault();
-    updateColors(generateComplementaryPalette(colorDivs[0].style.backgroundColor || randomHex()));
+    const baseHex = colorDivs[0].style.backgroundColor || randomHex();
+    updateColors(generateComplementaryPalette(baseHex));
   }
 });
 
-// Initialize on load
+// Initialize colors on load
 window.addEventListener("load", () => {
-  const hashColors = window.location.hash ? window.location.hash.slice(1).split("-") : generateComplementaryPalette(randomHex());
+  const hash = window.location.hash.slice(1); // remove #
+  let hashColors = [];
+
+  if(hash) {
+    // Split and make sure each color starts with #
+    hashColors = hash.split("-").map(c => c.startsWith("#") ? c : "#" + c);
+  } else {
+    hashColors = generateComplementaryPalette(randomHex());
+  }
+
   updateColors(hashColors);
 });
 
@@ -39,7 +49,6 @@ function randomHex() {
 
 // Generate 5-color complementary palette
 function generateComplementaryPalette(baseHex) {
-  // Convert baseHex to HSL
   const rgb = hexToRgb(baseHex);
   const r = rgb.r/255, g = rgb.g/255, b = rgb.b/255;
   const max = Math.max(r,g,b), min = Math.min(r,g,b);
@@ -73,10 +82,12 @@ function updateColors(colors) {
 
   colors.forEach((color, i) => {
     const hex = color.startsWith('#') ? color : '#' + color;
+
     if(!lockedDivs[i]) {
       colorDivs[i].style.backgroundColor = hex;
       hexDisplays[i].innerText = hex;
     }
+
     const rgb = colorDivs[i].style.backgroundColor.slice(4, -1).split(", ").map(Number);
     newColors.push(rgbToHex(...rgb));
   });
@@ -86,14 +97,12 @@ function updateColors(colors) {
     hexDiv.style.color = lockBtns[i].style.color = invert;
   });
 
-  const newURL = new URL("/colorgenerator/" + newColors.join("-"), window.location.origin);
-  window.history.pushState(null, null, newURL.href);
+  const newURL = new URL("/colorgenerator/" + newColors.map(c => c.replace("#","")).join("-"), window.location.origin);
+  window.history.replaceState(null, null, newURL.href);
 }
 
 // Utility functions
-function randInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+function randInt(min, max) { return Math.floor(Math.random()*(max-min+1)+min); }
 
 function hslToRgb(h, s, l) {
   s /= 100; l /= 100;
@@ -103,9 +112,7 @@ function hslToRgb(h, s, l) {
   return [Math.round(f(0)*255), Math.round(f(8)*255), Math.round(f(4)*255)];
 }
 
-function rgbToHex(r,g,b) {
-  return "#" + ((1 << 24) + (r <<16) + (g <<8) + b).toString(16).slice(1);
-}
+function rgbToHex(r,g,b) { return "#" + ((1<<24) + (r<<16) + (g<<8) + b).toString(16).slice(1); }
 
 function hexToRgb(hex) {
   const res = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
