@@ -3,7 +3,6 @@ const colorDivs = document.querySelectorAll(".color");
 const lockBtns = document.querySelectorAll(".lockBtn");
 const hexDisplays = document.querySelectorAll(".hex");
 
-// Lock/unlock functionality
 lockBtns.forEach((btn, i) => {
   btn.addEventListener("click", () => {
     lockedDivs[i] = !lockedDivs[i];
@@ -11,22 +10,19 @@ lockBtns.forEach((btn, i) => {
   });
 });
 
-// Click-to-copy hex
 hexDisplays.forEach(hexDiv => {
   hexDiv.addEventListener("click", () => {
     copyToClipboard(hexDiv.innerText);
   });
 });
 
-// Spacebar regenerates palette
 document.addEventListener("keydown", e => {
   if (e.code === "Space") {
     e.preventDefault();
-    updateColors(generateComplementaryPalette(randomHex()));
+    updateColors(generatePalette(randomHex()));
   }
 });
 
-// Initialize colors on load
 window.addEventListener("load", () => {
   const hash = window.location.hash.slice(1);
   let initialColors;
@@ -34,7 +30,7 @@ window.addEventListener("load", () => {
   if (hash) {
     initialColors = hash.split("-").map(c => c.startsWith("#") ? c : "#" + c);
   } else {
-    initialColors = generateComplementaryPalette(randomHex());
+    initialColors = generatePalette(randomHex());
   }
 
   updateColors(initialColors);
@@ -44,32 +40,57 @@ function randomHex() {
   return rgbToHex(randInt(0, 255), randInt(0, 255), randInt(0, 255));
 }
 
-function generateComplementaryPalette(baseHex) {
+function generatePalette(baseHex) {
   const rgb = hexToRgb(baseHex);
-  const r = rgb.r / 255, g = rgb.g / 255, b = rgb.b / 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h, s, l = (max + min) / 2;
+  let [h, s, l] = rgbToHsl(rgb.r, rgb.g, rgb.b);
 
-  if (max === min) { h = s = 0; }
-  else {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
-    }
-    h *= 60;
-  }
-  s *= 100; l *= 100;
+  // Normalize base to a reasonable, vibrant range
+  s = clamp(s, 45, 80);
+  l = clamp(l, 30, 60);
 
-  return [
-    baseHex,
-    rgbToHex(...hslToRgb((h + 180) % 360, s, l)),
-    rgbToHex(...hslToRgb((h + 30) % 360, s, l)),
-    rgbToHex(...hslToRgb((h - 30 + 360) % 360, s, l)),
-    rgbToHex(...hslToRgb((h + 120) % 360, s, l)),
+  // Pick a random harmony scheme
+  const schemes = [
+    'complementary',
+    'split-complementary',
+    'triadic',
+    'tetradic',
+    'analogous',
   ];
+  const scheme = schemes[randInt(0, schemes.length - 1)];
+
+  let hues;
+  switch (scheme) {
+    case 'complementary':
+      // Two poles + subtle shifts around each
+      hues = [h, (h + 180) % 360, (h + 20) % 360, (h + 200) % 360, (h + 160) % 360];
+      break;
+    case 'split-complementary':
+      // Base + two colors adjacent to its complement
+      hues = [h, (h + 150) % 360, (h + 210) % 360, (h + 30) % 360, (h + 330) % 360];
+      break;
+    case 'triadic':
+      // Three evenly spaced + two bridging
+      hues = [h, (h + 120) % 360, (h + 240) % 360, (h + 60) % 360, (h + 300) % 360];
+      break;
+    case 'tetradic':
+      // Four corners of the color wheel
+      hues = [h, (h + 90) % 360, (h + 180) % 360, (h + 270) % 360, (h + 45) % 360];
+      break;
+    case 'analogous':
+      // Neighboring hues — very harmonious
+      hues = [h, (h + 30) % 360, (h + 60) % 360, (h - 30 + 360) % 360, (h - 60 + 360) % 360];
+      break;
+  }
+
+  // Each color gets slight L and S variation so they're not all clones
+  const lShifts = [0, -12, +12, -6, +6];
+  const sShifts = [0, +10, -10, +5, -5];
+
+  return hues.map((hue, i) => {
+    const finalL = clamp(l + lShifts[i], 20, 75);
+    const finalS = clamp(s + sShifts[i], 30, 90);
+    return rgbToHex(...hslToRgb(hue, finalS, finalL));
+  });
 }
 
 function updateColors(colors) {
@@ -95,7 +116,30 @@ function updateColors(colors) {
   window.history.replaceState(null, null, "#" + newColors.map(c => c.replace("#", "")).join("-"));
 }
 
+// Utility functions
 function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
+
+function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h *= 60;
+  }
+  return [h, s * 100, l * 100];
+}
 
 function hslToRgb(h, s, l) {
   s /= 100; l /= 100;
