@@ -31,7 +31,7 @@ function calculate() {
     yInt = testYInt*-1
   }
   yInt = parseFloat(yInt)
-  point1 = document.getElementById('point1').value
+  point1 = [document.getElementById('pointx').value, document.getElementById('pointy').value]
   slope = slope.split('/')
   if(slope.length !=2){
     slope = slope + [1]
@@ -44,7 +44,6 @@ function calculate() {
 
   
   newSlope = Math.round((slopeX/slopeY)*-1*1000)/1000
-  point1 = point1.split(/(?:, |,)+/)
   x1 = point1[0]
   y1 = point1[1]
   slope = Math.round((slopeY/slopeX)*1000)/1000
