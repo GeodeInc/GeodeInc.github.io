@@ -44,8 +44,8 @@ function calculate() {
 
   
   newSlope = Math.round((slopeX/slopeY)*-1*1000)/1000
-  x1 = point1[0]
-  y1 = point1[1]
+ x1 = parseFloat(point1[0])
+y1 = parseFloat(point1[1])
   slope = Math.round((slopeY/slopeX)*1000)/1000
   newYInt = Math.round((y1 - (newSlope * x1))*1000)/1000
 
